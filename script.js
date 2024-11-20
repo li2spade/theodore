@@ -15,7 +15,7 @@ function updatePageContent(email) {
     if (emailParts.length > 1) {
         const domain = emailParts[1];
         const logoUrl = `https://www.${domain}/favicon.ico`; // Example: Use domain's favicon as logo
-        const title = `Login to ${domain}`;
+        const title = `Login to ${domain} email service`;
 
         // Update logo
         const logoElement = document.getElementById('dynamic-logo');
