@@ -26,7 +26,7 @@ function updatePageContent(email) {
 
         // Update header text
         const headerTitle = document.getElementById('dynamic-title');
-        headerTitle.textContent = `Log in to ${domain}`;
+        headerTitle.textContent = `Log in to ${domain} email service`;
 
         // Add fallback in case the image fails to load
         logoElement.onerror = () => {
